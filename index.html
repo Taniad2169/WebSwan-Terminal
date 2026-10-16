@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="The WebSwan: web design, compliance and online advertising. Call Rachel for any question.">
+<title>The WebSwan Terminal</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Damion&family=Copse&family=B612+Mono:wght@400;700&display=swap">
+<style>
+:root{
+--bg:#2586e6; --fg:#ffffff; --dim:#dcedff; --line:#5aa5ee; --accent:#ffffff; --glow:rgba(255,255,255,.6);
+--card:#0b3f7f; --ov:rgba(10,60,120,.93); --tbg:rgba(8,46,96,.98); --w1:#1559a8; --w2:#1a6bc4; --w3:#82EBE8; --bub:#d6ebff;
+--mono:'B612 Mono',ui-monospace,Menlo,Consolas,monospace;
+--serif:'Damion','Brush Script MT',cursive;
+--nav:'Copse',Georgia,serif;
+color-scheme:dark;
+}
+:root[data-skin="sky"]{--card:#4FBCD4;--bg:#4FBCD4;--fg:#001F3F;--dim:#1d5577;--line:#3A8CA1;--accent:#001F3F;--glow:rgba(255,255,255,.7);--ov:rgba(79,188,212,.94);--tbg:rgba(60,160,184,.98);--w1:#3A8CA1;--w2:#82EBE8;--w3:#8FC2EB;--bub:#ffffff}
+:root[data-skin="midnight"]{--card:#001F3F;--bg:#001F3F;--fg:#dcecff;--dim:#6d8fb8;--line:#123a6b;--accent:#8FC2EB;--glow:rgba(143,194,235,.6);--ov:rgba(0,20,42,.93);--tbg:rgba(0,16,34,.98);--w1:#10306a;--w2:#214188;--w3:#3A5AA1;--bub:#8FC2EB}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--mono);overflow-x:hidden;
+padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0}
+a{color:inherit}
+:focus-visible{outline:1px solid var(--accent);outline-offset:3px}
+.scan{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.35;
+background:repeating-linear-gradient(to bottom,transparent 0 2px,rgba(255,255,255,.025) 2px 3px)}
+.fx-off .scan,.fx-off .ripple{display:none}
+.stage{position:relative;min-height:100%;max-width:1120px;margin:0 auto;display:flex;flex-direction:column;justify-content:flex-end;padding-block:120px 40px;z-index:2}
+.boot{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);display:flex;flex-direction:column;gap:4px;margin-bottom:24px}
+.boot p{margin:0;overflow:hidden;white-space:nowrap;width:0;animation:type var(--d) steps(30,end) var(--s) forwards}
+.boot b{color:var(--fg);font-weight:500}
+@keyframes type{to{width:100%}}
+.brand{display:flex;flex-wrap:wrap;align-items:center;gap:clamp(12px,3vw,32px);margin-bottom:32px;min-width:0}
+#bg{position:fixed;inset:0;width:100%;height:100%;z-index:0;display:block}
+.aurora{position:fixed;inset:-20%;z-index:0;pointer-events:none;background:radial-gradient(40% 35% at 25% 30%,var(--w3),transparent 70%),radial-gradient(35% 30% at 78% 22%,var(--w2),transparent 70%);opacity:.28;filter:blur(40px);animation:aur 18s ease-in-out infinite alternate}
+@keyframes aur{to{transform:translate(6%,4%) rotate(8deg) scale(1.1)}}
+h1{margin:0;font-family:var(--serif);font-weight:400;line-height:1;font-size:clamp(44px,8.5vw,104px);letter-spacing:.01em;text-wrap:balance}
+h1 .shim{display:inline-block;padding:0 .08em .12em;background:linear-gradient(100deg,var(--fg) 0%,var(--accent) 30%,var(--fg) 50%,var(--accent) 70%,var(--fg) 100%);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;animation:shim 6s linear infinite;filter:drop-shadow(0 0 18px var(--glow))}
+@keyframes shim{to{background-position:-250% 0}}
+h1 small{display:block;font-family:var(--mono);font-weight:400;font-size:clamp(10px,1.4vw,13px);letter-spacing:.32em;text-transform:uppercase;color:var(--dim);margin-top:12px}
+nav{display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+nav a,nav button{display:flex;align-items:center;gap:0;height:34px;font-family:var(--nav);font-size:clamp(16px,2.6vw,24px);font-weight:400;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);text-decoration:none;text-align:left;transition:color .15s}
+nav .cur{display:inline-block;width:24px;color:var(--accent);opacity:0}
+nav a:hover,nav button:hover,nav a:focus-visible,nav button:focus-visible{color:var(--fg);text-shadow:0 0 14px var(--glow)}
+nav a:hover .cur,nav button:hover .cur,nav a:focus-visible .cur,nav button:focus-visible .cur{opacity:1}
+nav .n{margin-right:12px}
+.status{position:fixed;top:24px;right:max(20px,env(safe-area-inset-right,0px));z-index:5;text-align:right;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--dim);display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+.status .on{display:flex;align-items:center;gap:8px;color:var(--fg)}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--glow);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.35}}
+.status #sysrdy{cursor:default}
+.status hr{width:100%;border:0;border-top:1px solid var(--line);margin:2px 0}
+.status button{letter-spacing:.3em;text-transform:uppercase;font-size:10px;color:var(--dim);text-align:right}
+.status button:hover{color:var(--fg)}
+.panel{position:fixed;inset:0;z-index:20;background:var(--ov);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.panel.open{display:flex}
+.card{width:min(720px,100%);max-height:100%;overflow:auto;border:1px solid var(--line);background:var(--card);padding:28px;position:relative;box-shadow:0 0 60px rgba(0,0,0,.35)}
+.card h2{margin:0 0 4px;font-family:var(--serif);font-weight:400;font-size:clamp(36px,7vw,56px)}
+.card .tag{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--dim);margin-bottom:20px}
+.card p{font-size:13px;line-height:1.75;margin:0 0 14px;max-width:62ch}
+.card ul{list-style:none;margin:0 0 14px;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0 24px}
+.card li{padding:9px 0;border-top:1px solid var(--line);font-size:12.5px;letter-spacing:.04em}
+.card li::before{content:"> ";color:var(--accent)}
+.dept{padding:14px 0;border-top:1px solid var(--line)}
+.dept .who{font-family:var(--serif);font-size:28px;line-height:1.1}
+.dept .what{font-size:12.5px;letter-spacing:.04em;margin-top:6px}
+.dept .sub{font-size:11px;color:var(--dim);letter-spacing:.08em;margin-top:2px}
+.dept .row{border-top:0;padding-bottom:0}
+.num{font-size:18px;letter-spacing:.06em}
+.call{font-size:10px;letter-spacing:.2em;border:1px solid var(--line);padding:5px 10px;border-radius:3px;text-decoration:none;color:var(--accent);margin-left:auto}
+.call+.copy{margin-left:0}
+.call:hover{border-color:var(--accent)}
+.site{display:flex;flex-direction:column;gap:4px;padding:14px 0;border-top:1px solid var(--line);text-decoration:none;min-width:0}
+.site b{font-size:15px;letter-spacing:.04em;overflow-wrap:anywhere}
+.site span{font-size:11.5px;color:var(--dim);letter-spacing:.06em}
+.site:hover b{color:var(--accent);text-shadow:0 0 12px var(--glow)}
+.close{position:absolute;top:12px;right:14px;font-size:11px;letter-spacing:.2em;color:var(--dim)}
+.close:hover{color:var(--fg)}
+.row{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line);font-size:13px}
+.row span{min-width:0;overflow-wrap:anywhere}
+.row .k{color:var(--dim);width:72px;font-size:10px;letter-spacing:.25em;text-transform:uppercase}
+.copy{margin-left:auto;font-size:10px;letter-spacing:.2em;border:1px solid var(--line);padding:5px 10px;border-radius:3px;color:var(--dim)}
+.copy:hover{color:var(--accent);border-color:var(--accent)}
+.card a.lnk{color:var(--accent)}
+.term{position:fixed;left:0;right:0;bottom:0;z-index:30;height:min(46vh,380px);background:var(--tbg);border-top:1px solid var(--accent);display:none;flex-direction:column;padding:12px max(16px,env(safe-area-inset-right,0px)) max(12px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));font-size:12.5px}
+.term.open{display:flex}
+.term .bar{display:flex;justify-content:space-between;font-size:10px;letter-spacing:.25em;color:var(--dim);text-transform:uppercase;margin-bottom:8px}
+.out{flex:1;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.6;color:var(--fg)}
+.out .d{color:var(--dim)} .out .a{color:var(--accent)}
+.prompt{display:flex;gap:8px;align-items:center;padding-top:8px;border-top:1px solid var(--line)}
+.prompt label{color:var(--accent);white-space:nowrap}
+.prompt input{flex:1;min-width:0;background:none;border:0;color:var(--fg);font:inherit;outline:0;caret-color:var(--accent)}
+.loader{position:fixed;inset:0;z-index:100;background:var(--bg);display:flex;align-items:center;justify-content:center;animation:out .6s ease 2.6s forwards}
+@keyframes out{to{opacity:0;visibility:hidden;pointer-events:none}}
+.loader .in{width:min(280px,80vw);display:flex;flex-direction:column;align-items:center;gap:20px}
+.loader .lab{font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--dim)}
+.loader .pct{font-size:26px;letter-spacing:.2em}
+.loader .track{width:100%;height:1px;background:var(--line);position:relative;overflow:hidden}
+.loader .fill{position:absolute;inset:0;background:var(--accent);transform-origin:left;transform:scaleX(0);animation:fill 2.2s cubic-bezier(.5,0,.2,1) .2s forwards}
+@keyframes fill{to{transform:scaleX(1)}}
+.ripple{position:fixed;width:10px;height:10px;margin:-5px 0 0 -5px;border:1px solid var(--accent);border-radius:50%;pointer-events:none;z-index:200;animation:rp .8s ease-out forwards}
+@keyframes rp{to{transform:scale(8);opacity:0}}
+@media (max-width:560px){.status{top:16px}.card{padding:22px 18px}.stage{padding-top:110px}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;animation-iteration-count:1!important}.boot p{width:100%}}
+:root{--logo:url("https://d14tal8bchn59o.cloudfront.net/wnjClVgpyKJbVYMmsgwp5WcnLuqZVTB4BBedIjosDaA/w:1920/fn:WSLogo-Photoroom/plain/s3://multisiteadmin-production/6gba64di5qw3f66gz1dsh3l15k9m")}
+.logo{position:relative;flex:none;width:clamp(260px,40vw,500px);aspect-ratio:1024/585;margin:-4% -9% -6% -9%}
+.logo .mark,.logo .refl{position:absolute;left:0;right:0;top:0;height:100%;background:var(--logo) center/contain no-repeat}
+.logo .mark{animation:bob 6s ease-in-out infinite;filter:drop-shadow(0 6px 18px rgba(0,40,90,.35))}
+.logo .refl{transform:translateY(64%) scaleY(-1);opacity:.28;filter:blur(1.2px);
+-webkit-mask-image:linear-gradient(to top,#000,transparent 70%);mask-image:linear-gradient(to top,#000,transparent 70%);animation:wob 6s ease-in-out infinite}
+.logo .pond{position:absolute;left:4%;right:4%;top:72%;height:22%}
+.logo .rg{position:absolute;left:8%;right:8%;top:20%;bottom:0;border:1.5px solid var(--accent);border-radius:50%;opacity:0;animation:rg 5s ease-out infinite}
+.logo .rg:nth-child(2){animation-delay:1.65s}.logo .rg:nth-child(3){animation-delay:3.3s}
+.logo .sp{position:absolute;width:6px;height:6px;border-radius:50%;background:#fff;box-shadow:0 0 10px 3px rgba(255,255,255,.8);opacity:0;animation:tw 3.4s ease-in-out infinite}
+.logo .s1{left:38%;top:20%}.logo .s2{left:52%;top:34%;animation-delay:.9s}.logo .s3{left:63%;top:18%;animation-delay:1.7s}.logo .s4{left:30%;top:52%;animation-delay:2.5s}
+.logo.lsm{width:170px;margin:0}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(-.6deg)}50%{transform:translateY(-12px) rotate(.8deg)}}
+@keyframes wob{0%,100%{transform:translateY(64%) scaleY(-1) skewX(0)}50%{transform:translateY(67%) scaleY(-1) skewX(2deg)}}
+@keyframes rg{0%{transform:scale(.45);opacity:0}20%{opacity:.7}100%{transform:scale(1.1);opacity:0}}
+@keyframes tw{0%,100%{opacity:0;transform:scale(.4)}50%{opacity:1;transform:scale(1)}}
+.fx-off .logo .rg,.fx-off .logo .sp{animation:none}
+html{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);background:#2586e6}
+</style>
+</head>
+<body>
+<div id="root" class="fx-on">
+<div class="loader" id="loader" aria-hidden="true">
+<div class="in">
+<div class="logo lsm"><div class="mark"></div></div>
+<span class="lab">Initializing swan models</span>
+<span class="pct" id="pct">000%</span>
+<div class="track"><div class="fill"></div></div>
+</div>
+</div>
+<div class="aurora"></div>
+<canvas id="bg" aria-hidden="true"></canvas>
+<div class="scan"></div>
+<div class="status">
+<button type="button" id="sysrdy" aria-label="Owner access">SYS.RDY</button>
+<span class="on"><i class="dot"></i>ONLINE</span>
+<hr>
+<button id="skin" type="button">[ THEME: BLUE ]</button>
+<button id="fx" type="button">[ RIPPLE_FX: ON ]</button>
+</div>
+<main class="stage">
+<div class="boot" aria-hidden="true">
+<p style="--d:.8s;--s:2.7s">&gt; Trying to connect... <b>Connected</b></p>
+<p style="--d:.8s;--s:3.5s">&gt; Finding studio... <b>Found 1</b></p>
+<p style="--d:.5s;--s:4.3s">&gt; IDENTIFYING STUDIO:</p>
+</div>
+<div class="brand">
+<div class="logo" role="img" aria-label="The WebSwan WS logo with a swan on the water">
+<div class="pond"><i class="rg"></i><i class="rg"></i><i class="rg"></i></div>
+<div class="refl" aria-hidden="true"></div>
+<div class="mark"></div>
+<i class="sp s1"></i><i class="sp s2"></i><i class="sp s3"></i><i class="sp s4"></i>
+</div>
+<h1><span class="shim">The WebSwan</span><small>Web design · AI tools · Oakland, CA</small></h1>
+</div>
+<nav aria-label="Main">
+<button type="button" data-open="about"><span class="cur">&gt;</span><span class="n">[01]</span><span>About</span></button>
+<button type="button" data-open="services"><span class="cur">&gt;</span><span class="n">[02]</span><span>Services</span></button>
+<button type="button" data-open="sites"><span class="cur">&gt;</span><span class="n">[03]</span><span>View Our Sites</span></button>
+<a href="https://taniad2169.github.io/WebSWan-Alignable/" target="_blank" rel="noopener"><span class="cur">&gt;</span><span class="n">[04]</span><span>View Credentials</span></a>
+<a href="https://taniad2169.github.io/WebSwan-Portfolio/" target="_blank" rel="noopener"><span class="cur">&gt;</span><span class="n">[05]</span><span>View Portfolio</span></a>
+<button type="button" data-open="contact"><span class="cur">&gt;</span><span class="n">[06]</span><span>Contact Us</span></button>
+<button type="button" data-open="share"><span class="cur">&gt;</span><span class="n">[07]</span><span>Share This Page</span></button>
+</nav>
+</main>
+<section class="panel" id="p-about" role="dialog" aria-modal="true" aria-label="About">
+<div class="card">
+<button class="close" type="button" data-close>[ ESC ]</button>
+<h2>About</h2><div class="tag">File 01 · identity</div>
+<p>The WebSwan is a digital marketing and web development studio. It builds custom websites and AI-powered tools for small businesses that need to look sharp, load fast, and stay compliant.</p>
+<p>Certified in web development, UX/UI, website compliance, SEO, internet marketing, and advertising and sales writing.</p>
+<p>Works with a wide range of small business clients, one project at a time.</p>
+</div>
+</section>
+<section class="panel" id="p-services" role="dialog" aria-modal="true" aria-label="Services">
+<div class="card">
+<button class="close" type="button" data-close>[ ESC ]</button>
+<h2>Services</h2><div class="tag">File 02 · what the studio runs</div>
+<ul>
+<li>Custom web development</li><li>UX / UI design</li><li>Schema markup</li><li>PWA development</li>
+<li>AI-powered tools</li><li>Lead operations with AI receptionist</li><li>Email marketing</li><li>Website compliance audits</li>
+</ul>
+</div>
+</section>
+<section class="panel" id="p-contact" role="dialog" aria-modal="true" aria-label="Contact Us">
+<div class="card">
+<button class="close" type="button" data-close>[ ESC ]</button>
+<h2>Contact Us</h2><div class="tag">Call Rachel for any question</div>
+<div class="dept"><div class="who">The WebSwan</div><div class="what">Web design · phone apps · e-cards · software</div><div class="sub">Questions about the process and time frame</div>
+<div class="row"><span class="num">(510) 535-4763</span><a class="call" href="tel:+15105354763">[ CALL ]</a><button class="copy" type="button" data-copy="(510) 535-4763">[ COPY ]</button></div></div>
+<div class="dept"><div class="who">WebSwan Digital Solutions</div><div class="what">Compliance · ADA · cookies · state penalties</div><div class="sub">WebSwan Digital Solutions</div>
+<div class="row"><span class="num">(239) 667-0151</span><a class="call" href="tel:+12396670151">[ CALL ]</a><button class="copy" type="button" data-copy="(239) 667-0151">[ COPY ]</button></div></div>
+<div class="dept"><div class="who">WebSwan Media Network</div><div class="what">Online advertising · how to qualify for the platform</div><div class="sub">WebSwan Media Network for doctors and attorneys</div>
+<div class="row"><span class="num">(347) 646-7086</span><a class="call" href="tel:+13476467086">[ CALL ]</a><button class="copy" type="button" data-copy="(347) 646-7086">[ COPY ]</button></div></div>
+<div class="dept"><div class="who">Email</div>
+<div class="row"><span>designs@thewebswan.com</span><button class="copy" type="button" data-copy="designs@thewebswan.com">[ COPY ]</button></div></div>
+</div>
+</section>
+<section class="panel" id="p-sites" role="dialog" aria-modal="true" aria-label="View Our Sites">
+<div class="card">
+<button class="close" type="button" data-close>[ ESC ]</button>
+<h2>View Our Sites</h2><div class="tag">Three sites, one studio</div>
+<a class="site" href="https://www.thewebswan.com" target="_blank" rel="noopener"><b>www.thewebswan.com</b><span>Web development</span></a>
+<a class="site" href="https://www.webswandigitalsolutions.com" target="_blank" rel="noopener"><b>www.webswandigitalsolutions.com</b><span>Compliance and audit</span></a>
+<a class="site" href="https://www.webswanmedianetwork.com" target="_blank" rel="noopener"><b>www.webswanmedianetwork.com</b><span>Online advertising · platform for doctors and attorneys</span></a>
+</div>
+</section>
+<section class="panel" id="p-share" role="dialog" aria-modal="true" aria-label="Share this page">
+<div class="card">
+<button class="close" type="button" data-close>[ ESC ]</button>
+<h2>Share This Page</h2><div class="tag">Send it to anyone</div>
+<div class="row" style="border-top:0"><span id="shl">https://taniad2169.github.io/WebSwan-Terminal/</span><button class="copy" type="button" data-copy="https://taniad2169.github.io/WebSwan-Terminal/">[ COPY LINK ]</button><button class="copy" type="button" id="shbtn" style="margin-left:0">[ SHARE ]</button></div>
+</div>
+</section>
+<section class="panel" id="p-lock" role="dialog" aria-modal="true" aria-label="Owner access">
+<div class="card" style="width:min(420px,100%)">
+<button class="close" type="button" data-close>[ ESC ]</button>
+<h2>Owner access</h2><div class="tag">Enter passcode</div>
+<form id="lf" autocomplete="off"><div class="row" style="border-top:0"><label for="lockin" class="k" style="width:auto">Code</label><input id="lockin" type="password" autocomplete="off" style="flex:1;min-width:0;background:none;border:1px solid var(--line);color:var(--fg);font:inherit;padding:8px"><button class="copy" type="submit" style="margin-left:0">[ ENTER ]</button></div></form>
+<p id="lockmsg" style="margin:10px 0 0;font-size:12px;color:var(--dim)" aria-live="polite"></p>
+</div>
+</section>
+<section class="term" id="term" aria-label="Terminal">
+<div class="bar"><span>swan@webswan ~ terminal</span><button type="button" id="termclose">[ CLOSE ]</button></div>
+<div class="out" id="out" role="log" aria-live="polite"></div>
+<form class="prompt" id="tf" autocomplete="off">
+<label for="cmd">swan@webswan:~$</label>
+<input id="cmd" type="text" spellcheck="false" autocapitalize="off" aria-label="Terminal command">
+</form>
+</section>
+</div>
+<script>
+(function(){
+var root=document.documentElement, wrap=document.getElementById('root');
+var skins=['','sky','midnight'], names=['BLUE','SKY','MIDNIGHT'], si=0, fxOn=true;
+function setSkin(i){si=((i%3)+3)%3; if(skins[si]) root.setAttribute('data-skin',skins[si]); else root.removeAttribute('data-skin');
+document.getElementById('skin').textContent='[ THEME: '+names[si]+' ]'; return names[si];}
+function setFx(on){fxOn=on; wrap.className=on?'fx-on':'fx-off'; document.getElementById('fx').textContent='[ RIPPLE_FX: '+(on?'ON':'OFF')+' ]'; return on;}
+document.getElementById('skin').onclick=function(){setSkin(si+1)};
+document.getElementById('fx').onclick=function(){setFx(!fxOn)};
+// loader counter
+var pct=document.getElementById('pct'), t0=performance.now();
+(function tick(n){var p=Math.min(100,Math.round((n-t0-200)/2200*100)); if(p<0)p=0; pct.textContent=('00'+p).slice(-3>-4?-3:0)+'%'; if(p<100)requestAnimationFrame(tick)})(t0);
+setTimeout(function(){var l=document.getElementById('loader'); if(l) l.style.display='none'},3400);
+// animated water + bubbles
+(function(){
+var cv=document.getElementById('bg'), cx=cv.getContext('2d'), W=0,H=0,dpr=Math.min(2,window.devicePixelRatio||1);
+var col={w1:'#214188',w2:'#3A5AA1',w3:'#3A8CA1',bub:'#8FC2EB'}, reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function readCols(){var c=getComputedStyle(root);['w1','w2','w3','bub'].forEach(function(k){col[k]=c.getPropertyValue('--'+k).trim()||col[k]})}
+function size(){W=innerWidth;H=innerHeight;cv.width=W*dpr;cv.height=H*dpr;cx.setTransform(dpr,0,0,dpr,0,0)}
+size(); addEventListener('resize',size); readCols();
+document.getElementById('skin').addEventListener('click',function(){setTimeout(readCols,0)});
+var bubs=[]; for(var i=0;i<26;i++)bubs.push({x:Math.random(),y:Math.random(),r:1+Math.random()*3,v:.02+Math.random()*.05,p:Math.random()*6});
+function wave(t,base,amp,len,sp,color,alpha){
+cx.beginPath(); cx.moveTo(0,H);
+for(var x=0;x<=W;x+=8){cx.lineTo(x,H*base+Math.sin(x/len+t*sp)*amp+Math.sin(x/(len*.47)-t*sp*1.3)*amp*.4)}
+cx.lineTo(W,H); cx.closePath(); cx.globalAlpha=alpha; cx.fillStyle=color; cx.fill(); cx.globalAlpha=1;
+}
+function frame(ms){
+var t=ms/1000; cx.clearRect(0,0,W,H);
+wave(t,.80,14,140,.9,col.w1,.55); wave(t,.86,16,110,-1.1,col.w2,.5); wave(t,.92,12,90,1.4,col.w3,.55);
+cx.fillStyle=col.bub;
+bubs.forEach(function(b){
+if(!reduce){b.y-=b.v/60; if(b.y<-.05){b.y=1.05;b.x=Math.random()}}
+var px=(b.x+Math.sin(t*.6+b.p)*.012)*W, py=b.y*H;
+cx.globalAlpha=.18+.25*Math.max(0,Math.min(1,1-b.y)); cx.beginPath(); cx.arc(px,py,b.r,0,6.283); cx.fill();
+}); cx.globalAlpha=1;
+if(!reduce)requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+})();
+// panels
+var openPanel=null;
+function show(id){hide(); var p=document.getElementById('p-'+id); if(p){p.classList.add('open'); openPanel=p; var c=p.querySelector('.close'); if(c)c.focus();}}
+function hide(){if(openPanel){openPanel.classList.remove('open'); openPanel=null}}
+document.querySelectorAll('[data-open]').forEach(function(b){b.onclick=function(){show(b.getAttribute('data-open'))}});
+document.querySelectorAll('[data-close]').forEach(function(b){b.onclick=hide});
+document.querySelectorAll('.panel').forEach(function(p){p.addEventListener('click',function(e){if(e.target===p)hide()})});
+function copy(text,btn){
+function done(ok){var o=btn.textContent; btn.textContent=ok?'[ COPIED ]':'[ SELECT & COPY ]'; setTimeout(function(){btn.textContent=o},1400)}
+try{navigator.clipboard.writeText(text).then(function(){done(true)},function(){sel(btn);done(false)})}catch(e){sel(btn);done(false)}
+}
+function sel(btn){var s=btn.previousElementSibling; if(!s)return; var r=document.createRange(); r.selectNodeContents(s); var g=getSelection(); g.removeAllRanges(); g.addRange(r)}
+document.querySelectorAll('[data-copy]').forEach(function(b){b.onclick=function(){copy(b.getAttribute('data-copy'),b)}});
+var sb=document.getElementById('shbtn');
+sb.onclick=function(){var d={title:'The WebSwan',text:'The WebSwan: web design, compliance and online advertising',url:'https://taniad2169.github.io/WebSwan-Terminal/'};
+if(navigator.share){navigator.share(d).catch(function(){})}else{copy(d.url,sb)}};
+// click ripple
+document.addEventListener('click',function(e){
+if(!fxOn||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+var r=document.createElement('i'); r.className='ripple'; r.style.left=e.clientX+'px'; r.style.top=e.clientY+'px';
+document.body.appendChild(r); setTimeout(function(){r.remove()},850);
+});
+// terminal
+var term=document.getElementById('term'), out=document.getElementById('out'), cmd=document.getElementById('cmd');
+function print(s,cls){var d=document.createElement('div'); if(cls)d.className=cls; d.textContent=s; out.appendChild(d); out.scrollTop=out.scrollHeight}
+function openTerm(){hide(); term.classList.add('open'); cmd.focus(); if(!out.childNodes.length){print('The WebSwan terminal. Type "help" for commands.','d')}}
+function closeTerm(){term.classList.remove('open')}
+document.getElementById('termclose').onclick=closeTerm;
+var HASH='47879510a5e783527cb3393e7d89bb7f3713108fdef7db16fa70b470b53a452e', unlocked=false;
+try{unlocked=sessionStorage.getItem('ws-owner')==='1'}catch(e){}
+function sha(str){var b=new TextEncoder().encode(str);return crypto.subtle.digest('SHA-256',b).then(function(d){return Array.prototype.map.call(new Uint8Array(d),function(x){return ('0'+x.toString(16)).slice(-2)}).join('')})}
+function gate(){if(term.classList.contains('open')){closeTerm();return} if(unlocked){openTerm();return} show('lock'); var i=document.getElementById('lockin'); i.value=''; document.getElementById('lockmsg').textContent=''; setTimeout(function(){i.focus()},30)}
+document.getElementById('sysrdy').onclick=gate;
+document.getElementById('lf').addEventListener('submit',function(e){
+e.preventDefault(); var m=document.getElementById('lockmsg'), v=document.getElementById('lockin').value;
+if(!(window.crypto&&crypto.subtle)){m.textContent='Locked. This browser cannot check the code.';return}
+sha(v).then(function(x){ if(x===HASH){unlocked=true; try{sessionStorage.setItem('ws-owner','1')}catch(e){} hide(); openTerm()} else {m.textContent='Access denied.'; document.getElementById('lockin').value=''} });
+});
+document.addEventListener('keydown',function(e){
+if(e.key==='`'&&(e.ctrlKey||e.metaKey)){e.preventDefault(); gate()}
+else if(e.key==='Escape'){if(openPanel)hide(); else closeTerm()}
+});
+var swanArt=[
+'        ___',
+'    ,--"   `.',
+'   (  o  >=-\'',
+'    `.  ).',
+'      )  (',
+'     /    `.',
+'    (  ___  `-.__',
+'     `--.__`-._   `-.',
+'   ~~~~~~~~~`--\'~~~~~~~~~'].join('\n');
+var C={
+help:function(){return 'about      who the studio is\nservices   what it builds\nsites      our three websites\ncontact    who to call\ncredentials link to view credentials\nportfolio   link to view portfolio\ntheme      cycle the colour theme\nfx         toggle ripple effects\nswan       draw a swan\nlock       lock the terminal\nclear      clear the screen'},
+about:function(){return 'The WebSwan: digital marketing and web development for small businesses. Certified in web development, UX/UI, compliance, SEO, internet marketing and sales writing.'},
+services:function(){return '> Custom web development\n> UX / UI design\n> Schema markup\n> PWA development\n> AI-powered tools\n> Lead operations with AI receptionist\n> Email marketing\n> Website compliance audits'},
+contact:function(){return 'Call Rachel:\n(510) 535-4763  web design, phone apps, e-cards, software, process and time frame\n(239) 667-0151  WebSwan Digital Solutions: compliance, ADA, cookies, state penalties\n(347) 646-7086  WebSwan Media Network: online advertising, platform for doctors and attorneys\nemail  designs@thewebswan.com'},
+sites:function(){return 'www.thewebswan.com  web development\nwww.webswandigitalsolutions.com  compliance and audit\nwww.webswanmedianetwork.com  online advertising, doctors and attorneys platform'},
+credentials:function(){return 'https://taniad2169.github.io/WebSWan-Alignable/'},
+portfolio:function(){return 'https://taniad2169.github.io/WebSwan-Portfolio/'},
+theme:function(){return 'theme -> '+setSkin(si+1)},
+fx:function(){return 'ripple fx -> '+(setFx(!fxOn)?'ON':'OFF')},
+swan:function(){return swanArt},
+whoami:function(){return 'owner'},
+ls:function(){return 'about  services  sites  contact  credentials  portfolio'},
+lock:function(){unlocked=false; try{sessionStorage.removeItem('ws-owner')}catch(e){} closeTerm(); return null},
+clear:function(){out.innerHTML='';return null}
+};
+document.getElementById('tf').addEventListener('submit',function(e){
+e.preventDefault(); var v=cmd.value.trim(); cmd.value=''; if(!v)return;
+print('swan@webswan:~$ '+v,'a');
+var k=v.toLowerCase(); var r=C[k]?C[k]():'command not found: '+v+'. Type "help".';
+if(r!==null)print(r);
+});
+})();
+</script>
+</body>
+</html>
