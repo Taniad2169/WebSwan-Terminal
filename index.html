@@ -41,11 +41,51 @@ h1 .shim{display:inline-block;padding:0 .08em .12em;background:linear-gradient(1
 @keyframes shim{to{background-position:-250% 0}}
 h1 small{display:block;font-family:var(--mono);font-weight:400;font-size:clamp(10px,1.4vw,13px);letter-spacing:.32em;text-transform:uppercase;color:var(--dim);margin-top:12px}
 nav{display:flex;flex-direction:column;gap:6px;align-items:flex-start}
-nav a,nav button{display:flex;align-items:center;gap:0;height:34px;font-family:var(--nav);font-size:clamp(16px,2.6vw,24px);font-weight:400;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);text-decoration:none;text-align:left;transition:color .15s}
+nav a,nav button{display:flex;align-items:flex-start;gap:0;min-height:34px;padding:4px 0;line-height:1.25;font-family:var(--nav);font-size:clamp(16px,2.6vw,24px);font-weight:400;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);text-decoration:none;text-align:left;transition:color .15s}
 nav .cur{display:inline-block;width:24px;color:var(--accent);opacity:0}
 nav a:hover,nav button:hover,nav a:focus-visible,nav button:focus-visible{color:var(--fg);text-shadow:0 0 14px var(--glow)}
 nav a:hover .cur,nav button:hover .cur,nav a:focus-visible .cur,nav button:focus-visible .cur{opacity:1}
-nav .n{margin-right:12px}
+nav .n{margin-right:12px;flex:none}
+nav .cur{flex:none}
+nav .hot{color:var(--fg)}
+nav .hot span:last-child{border-bottom:1px solid var(--accent);text-shadow:0 0 12px var(--glow)}
+.mbox textarea{width:100%;min-height:150px;resize:vertical;background:rgba(255,255,255,.06);border:1px solid var(--line);color:var(--fg);font:inherit;font-size:13px;line-height:1.6;padding:10px}
+.mbox input{width:100%;background:rgba(255,255,255,.06);border:1px solid var(--line);color:var(--fg);font:inherit;font-size:13px;padding:9px 10px}
+.mbox label{display:block;font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--dim);margin:12px 0 5px}
+.mbox .two{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
+.mbox .cnt{font-size:11px;color:var(--dim);text-align:right;margin-top:4px}
+.mbox .act{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.mbox .act button{font-size:11px;letter-spacing:.2em;text-transform:uppercase;border:1px solid var(--accent);color:var(--accent);padding:10px 14px;border-radius:3px}
+.mbox .act button.pri{background:var(--accent);color:var(--card)}
+.mbox .act button:disabled{opacity:.5;cursor:default}
+.mbox .msg{font-size:12px;margin:10px 0 0;color:var(--fg)}
+.more{margin-top:18px;border-top:1px solid var(--line);padding-top:6px}
+.more summary{cursor:pointer;font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--dim);padding:8px 0}
+.svc a{display:block;padding:9px 0;border-top:1px solid var(--line);font-size:12.5px;letter-spacing:.04em;text-decoration:none}
+.svc a::before{content:"> ";color:var(--accent)}
+.svc a:hover{color:var(--accent);text-shadow:0 0 12px var(--glow)}
+.soon{text-align:center}
+.soon p{margin-left:auto;margin-right:auto}
+.road{position:relative;height:150px;overflow:hidden;margin:6px 0 4px;border-bottom:2px dashed var(--line)}
+.caravan{position:absolute;bottom:4px;left:0;display:flex;align-items:flex-end;gap:2px;animation:roll 9s linear infinite;white-space:nowrap}
+.caravan .lead{font-size:42px;animation:hop .5s ease-in-out infinite alternate;transform-origin:bottom}
+.rope{width:26px;height:2px;background:var(--fg);opacity:.6;margin-bottom:34px}
+.wagon{position:relative;padding:0 8px 22px}
+.wagon .bed{display:flex;gap:2px;align-items:flex-end;background:linear-gradient(#c98b4b,#8a5528);border:2px solid #5a3412;border-radius:6px 6px 10px 10px;padding:4px 8px 6px;box-shadow:inset 0 -4px 0 rgba(0,0,0,.18)}
+.wagon .bed span{font-size:30px;line-height:1;display:inline-block;animation:bob2 .9s ease-in-out infinite}
+.wagon .bed span:nth-child(2){animation-delay:.15s}.wagon .bed span:nth-child(3){animation-delay:.3s}.wagon .bed span:nth-child(4){animation-delay:.45s}
+.wagon .flag{position:absolute;top:-30px;left:50%;transform:translateX(-50%);font-size:10px;letter-spacing:.15em;text-transform:uppercase;background:var(--accent);color:var(--card);padding:3px 8px;border-radius:3px;white-space:nowrap}
+.wheel{position:absolute;bottom:0;width:26px;height:26px;border-radius:50%;border:4px solid #3b2410;background:repeating-conic-gradient(#3b2410 0 10deg,transparent 10deg 45deg);animation:spin .8s linear infinite}
+.wheel.w1{left:10px}.wheel.w2{right:10px}
+@keyframes roll{0%{transform:translateX(-110%)}100%{transform:translateX(min(760px,100vw))}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes hop{to{transform:translateY(-4px) rotate(-3deg)}}
+@keyframes bob2{50%{transform:translateY(-5px)}}
+.chips{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin:10px 0 16px}
+.chips span{font-size:11px;letter-spacing:.06em;border:1px solid var(--line);padding:4px 9px;border-radius:999px}
+.soon .act{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
+.soon .act a{font-size:11px;letter-spacing:.2em;text-transform:uppercase;border:1px solid var(--accent);color:var(--accent);padding:10px 14px;border-radius:3px;text-decoration:none}
+@media (max-width:560px){.mbox .two{grid-template-columns:1fr}}
 .status{position:fixed;top:24px;right:max(20px,env(safe-area-inset-right,0px));z-index:5;text-align:right;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--dim);display:flex;flex-direction:column;align-items:flex-end;gap:8px}
 .status .on{display:flex;align-items:center;gap:8px;color:var(--fg)}
 .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--glow);animation:pulse 2s ease-in-out infinite}
@@ -157,16 +197,19 @@ html{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset
 <div class="mark"></div>
 <i class="sp s1"></i><i class="sp s2"></i><i class="sp s3"></i><i class="sp s4"></i>
 </div>
-<h1><span class="shim">The WebSwan</span><small>Web design · AI tools · Oakland, CA</small></h1>
+<h1><span class="shim">The WebSwan</span><small>Web design · AI tools · Nationwide</small></h1>
 </div>
 <nav aria-label="Main">
-<button type="button" data-open="about"><span class="cur">&gt;</span><span class="n">[01]</span><span>About</span></button>
+<a href="https://www.thewebswan.com/about-us" target="_blank" rel="noopener"><span class="cur">&gt;</span><span class="n">[01]</span><span>About Us</span></a>
 <button type="button" data-open="services"><span class="cur">&gt;</span><span class="n">[02]</span><span>Services</span></button>
 <button type="button" data-open="sites"><span class="cur">&gt;</span><span class="n">[03]</span><span>View Our Sites</span></button>
 <a href="https://taniad2169.github.io/WebSWan-Alignable/" target="_blank" rel="noopener"><span class="cur">&gt;</span><span class="n">[04]</span><span>View Credentials</span></a>
 <a href="https://taniad2169.github.io/WebSwan-Portfolio/" target="_blank" rel="noopener"><span class="cur">&gt;</span><span class="n">[05]</span><span>View Portfolio</span></a>
-<button type="button" data-open="contact"><span class="cur">&gt;</span><span class="n">[06]</span><span>Contact Us</span></button>
-<button type="button" data-open="share"><span class="cur">&gt;</span><span class="n">[07]</span><span>Share This Page</span></button>
+<a class="hot" href="https://ads.webswanmedianetwork.com/#contact" target="_blank" rel="noopener"><span class="cur">&gt;</span><span class="n">[06]</span><span>Attorneys &amp; Doctors: click here to sign up for visibility nationwide</span></a>
+<a class="hot" href="https://www.webswandigitalsolutions.com/#wsc-audit" target="_blank" rel="noopener"><span class="cur">&gt;</span><span class="n">[07]</span><span>Need website state compliance or a complimentary website audit? Click here</span></a>
+<button type="button" data-open="find"><span class="cur">&gt;</span><span class="n">[08]</span><span>Looking for a doctor or attorney? Click here</span></button>
+<button type="button" data-open="contact"><span class="cur">&gt;</span><span class="n">[09]</span><span>Contact Us</span></button>
+<button type="button" data-open="share"><span class="cur">&gt;</span><span class="n">[10]</span><span>Share This Page</span></button>
 </nav>
 </main>
 <section class="panel" id="p-about" role="dialog" aria-modal="true" aria-label="About">
@@ -184,14 +227,29 @@ html{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset
 <h2>Services</h2><div class="tag">File 02 · what the studio runs</div>
 <ul>
 <li>Custom web development</li><li>UX / UI design</li><li>Schema markup</li><li>PWA development</li>
-<li>AI-powered tools</li><li>Lead operations with AI receptionist</li><li>Email marketing</li><li>Website compliance audits</li>
+<li>AI-powered websites &amp; tools</li><li>Lead operations with AI receptionist</li><li>Email marketing</li><li>Website compliance audits</li>
 </ul>
+<div class="svc">
+<a href="https://www.thewebswan.com" target="_blank" rel="noopener">Custom websites, phone apps &amp; AI-powered tools: The WebSwan</a>
+<a href="https://www.webswandigitalsolutions.com/#wsc-audit" target="_blank" rel="noopener">ADA &amp; cookie compliance, complimentary website audit: WebSwan Digital Solutions</a>
+<a href="https://ads.webswanmedianetwork.com/#contact" target="_blank" rel="noopener">Nationwide visibility for doctors &amp; attorneys: WebSwan Media Network</a>
+</div>
 </div>
 </section>
 <section class="panel" id="p-contact" role="dialog" aria-modal="true" aria-label="Contact Us">
 <div class="card">
 <button class="close" type="button" data-close>[ ESC ]</button>
-<h2>Contact Us</h2><div class="tag">Call Rachel for any question</div>
+<h2>Contact Us</h2><div class="tag">Send us a message · we reply fast</div>
+<form class="mbox" id="mform" novalidate>
+<div class="two"><div><label for="mname">Your name</label><input id="mname" autocomplete="name" maxlength="80"></div>
+<div><label for="mphone">Your phone or email</label><input id="mphone" autocomplete="tel" maxlength="120"></div></div>
+<label for="mtext">Your message (up to 500 words)</label>
+<textarea id="mtext" maxlength="4000" placeholder="Tell us what you need…"></textarea>
+<div class="cnt" id="mcnt">0 / 500 words</div>
+<div class="act"><button type="submit" class="pri" id="msms">[ SEND AS TEXT ]</button><button type="button" id="mmail">[ SEND BY EMAIL ]</button></div>
+<p class="msg" id="mmsg" aria-live="polite"></p>
+</form>
+<details class="more"><summary>More ways to reach us · call Rachel</summary>
 <div class="dept"><div class="who">The WebSwan</div><div class="what">Web design · phone apps · e-cards · software</div><div class="sub">Questions about the process and time frame</div>
 <div class="row"><span class="num">(510) 535-4763</span><a class="call" href="tel:+15105354763">[ CALL ]</a><button class="copy" type="button" data-copy="(510) 535-4763">[ COPY ]</button></div></div>
 <div class="dept"><div class="who">WebSwan Digital Solutions</div><div class="what">Compliance · ADA · cookies · state penalties</div><div class="sub">WebSwan Digital Solutions</div>
@@ -200,6 +258,25 @@ html{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset
 <div class="row"><span class="num">(347) 646-7086</span><a class="call" href="tel:+13476467086">[ CALL ]</a><button class="copy" type="button" data-copy="(347) 646-7086">[ COPY ]</button></div></div>
 <div class="dept"><div class="who">Email</div>
 <div class="row"><span>designs@thewebswan.com</span><button class="copy" type="button" data-copy="designs@thewebswan.com">[ COPY ]</button></div></div>
+</details>
+</div>
+</section>
+<section class="panel" id="p-find" role="dialog" aria-modal="true" aria-label="Find a doctor or attorney: coming soon">
+<div class="card soon">
+<button class="close" type="button" data-close>[ ESC ]</button>
+<h2>Coming soon!</h2><div class="tag">Find a doctor or attorney nationwide</div>
+<div class="road" aria-hidden="true">
+<div class="caravan">
+<div class="wagon"><div class="flag">Attorneys</div><div class="bed"><span>👩‍⚖️</span><span>👨‍⚖️</span><span>⚖️</span><span>📜</span></div><i class="wheel w1"></i><i class="wheel w2"></i></div>
+<div class="rope"></div>
+<div class="wagon"><div class="flag">Doctors</div><div class="bed"><span>👩‍⚕️</span><span>🦷</span><span>🦴</span><span>👨‍⚕️</span></div><i class="wheel w1"></i><i class="wheel w2"></i></div>
+<div class="rope"></div>
+<div class="lead">🦢</div>
+</div>
+</div>
+<p>Our swan is pulling the wagon as fast as she can! Soon you'll be able to find trusted professionals near you, all in one place.</p>
+<div class="chips"><span>Doctors</span><span>Dentists</span><span>Chiropractors</span><span>Dermatologists</span><span>Therapists</span><span>Divorce attorneys</span><span>Accident attorneys</span><span>Immigration attorneys</span><span>Criminal defense</span><span>Real estate attorneys</span></div>
+<div class="act"><a href="https://ads.webswanmedianetwork.com/#contact" target="_blank" rel="noopener">[ Are you a doctor or attorney? Join now ]</a></div>
 </div>
 </section>
 <section class="panel" id="p-sites" role="dialog" aria-modal="true" aria-label="View Our Sites">
@@ -288,6 +365,26 @@ try{navigator.clipboard.writeText(text).then(function(){done(true)},function(){s
 }
 function sel(btn){var s=btn.previousElementSibling; if(!s)return; var r=document.createRange(); r.selectNodeContents(s); var g=getSelection(); g.removeAllRanges(); g.addRange(r)}
 document.querySelectorAll('[data-copy]').forEach(function(b){b.onclick=function(){copy(b.getAttribute('data-copy'),b)}});
+// contact message box: text or email to The WebSwan
+(function(){
+var f=document.getElementById('mform'), t=document.getElementById('mtext'), c=document.getElementById('mcnt'), m=document.getElementById('mmsg');
+var PHONE='+14158770687', MAIL='https://formsubmit.co/ajax/thewebswann@gmail.com';
+function words(s){return (s.trim().match(/\S+/g)||[]).length}
+function trim500(){var w=t.value.trim().split(/\s+/); if(words(t.value)>500){t.value=w.slice(0,500).join(' ')} c.textContent=words(t.value)+' / 500 words'}
+t.addEventListener('input',trim500);
+function body(){var n=document.getElementById('mname').value.trim(), p=document.getElementById('mphone').value.trim();
+return 'Message from The WebSwan Terminal'+(n?'\nName: '+n:'')+(p?'\nContact: '+p:'')+'\n\n'+t.value.trim()}
+function ok(){if(!t.value.trim()){m.textContent='Please type your message first.'; t.focus(); return false} return true}
+f.addEventListener('submit',function(e){e.preventDefault(); if(!ok())return;
+var ios=/iP(hone|ad|od)|Mac/.test(navigator.userAgent);
+location.href='sms:'+PHONE+(ios?'&':'?')+'body='+encodeURIComponent(body());
+m.textContent='Your messaging app should open with your text ready. Just press send. On a computer without texting, use [ SEND BY EMAIL ].'});
+document.getElementById('mmail').addEventListener('click',function(){ if(!ok())return; var b=this; b.disabled=true; m.textContent='Sending…';
+var d=new FormData(); d.append('_subject','New message from The WebSwan Terminal'); d.append('_template','table'); d.append('_captcha','false');
+d.append('name',document.getElementById('mname').value.trim()); d.append('contact',document.getElementById('mphone').value.trim()); d.append('message',t.value.trim());
+var pv=document.getElementById('mphone').value.trim(); if(/@/.test(pv)) d.append('_replyto',pv);
+fetch(MAIL,{method:'POST',body:d,headers:{'Accept':'application/json'}}).then(function(r){if(!r.ok)throw 0; m.textContent='Thank you! Your message was sent. We will get back to you soon.'; t.value=''; trim500()}).catch(function(){m.textContent='Sorry, that did not go through. Please call or text (415) 877-0687.'}).then(function(){b.disabled=false})});
+})();
 var sb=document.getElementById('shbtn');
 sb.onclick=function(){var d={title:'The WebSwan',text:'The WebSwan: web design, compliance and online advertising',url:'https://taniad2169.github.io/WebSwan-Terminal/'};
 if(navigator.share){navigator.share(d).catch(function(){})}else{copy(d.url,sb)}};
@@ -329,7 +426,7 @@ var swanArt=[
 '   ~~~~~~~~~`--\'~~~~~~~~~'].join('\n');
 var C={
 help:function(){return 'about      who the studio is\nservices   what it builds\nsites      our three websites\ncontact    who to call\ncredentials link to view credentials\nportfolio   link to view portfolio\ntheme      cycle the colour theme\nfx         toggle ripple effects\nswan       draw a swan\nlock       lock the terminal\nclear      clear the screen'},
-about:function(){return 'The WebSwan: digital marketing and web development for small businesses. Certified in web development, UX/UI, compliance, SEO, internet marketing and sales writing.'},
+about:function(){return 'The WebSwan: digital marketing and web development for small businesses nationwide. Certified in web development, UX/UI, compliance, SEO, internet marketing and sales writing.\nhttps://www.thewebswan.com/about-us'},
 services:function(){return '> Custom web development\n> UX / UI design\n> Schema markup\n> PWA development\n> AI-powered tools\n> Lead operations with AI receptionist\n> Email marketing\n> Website compliance audits'},
 contact:function(){return 'Call Rachel:\n(510) 535-4763  web design, phone apps, e-cards, software, process and time frame\n(239) 667-0151  WebSwan Digital Solutions: compliance, ADA, cookies, state penalties\n(347) 646-7086  WebSwan Media Network: online advertising, platform for doctors and attorneys\nemail  designs@thewebswan.com'},
 sites:function(){return 'www.thewebswan.com  web development\nwww.webswandigitalsolutions.com  compliance and audit\nwww.webswanmedianetwork.com  online advertising, doctors and attorneys platform'},
