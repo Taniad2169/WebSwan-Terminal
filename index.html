@@ -116,7 +116,10 @@ nav .hot span:last-child{border-bottom:1px solid var(--accent);text-shadow:0 0 1
 .site b{font-size:15px;letter-spacing:.04em;overflow-wrap:anywhere}
 .site span{font-size:11.5px;color:var(--dim);letter-spacing:.06em}
 .site:hover b{color:var(--accent);text-shadow:0 0 12px var(--glow)}
-.close{position:absolute;top:12px;right:14px;font-size:11px;letter-spacing:.2em;color:var(--dim)}
+.close{position:absolute;top:12px;right:14px;font-size:11px;letter-spacing:.2em;color:var(--fg);border:1px solid var(--line);border-radius:3px;padding:6px 10px;text-transform:uppercase}
+.close:hover,.close:focus-visible{color:var(--accent);border-color:var(--accent)}
+.card h2{padding-right:150px}
+@media (max-width:560px){.card h2{padding-right:0;margin-top:34px}}
 .close:hover{color:var(--fg)}
 .row{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line);font-size:13px}
 .row span{min-width:0;overflow-wrap:anywhere}
@@ -214,7 +217,7 @@ html{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset
 </main>
 <section class="panel" id="p-about" role="dialog" aria-modal="true" aria-label="About">
 <div class="card">
-<button class="close" type="button" data-close>[ ESC ]</button>
+<button class="close" type="button" data-close aria-label="Close and go back to the main page">[ ESC ] Click to go back</button>
 <h2>About</h2><div class="tag">File 01 · identity</div>
 <p>The WebSwan is a digital marketing and web development studio. It builds custom websites and AI-powered tools for small businesses that need to look sharp, load fast, and stay compliant.</p>
 <p>Certified in web development, UX/UI, website compliance, SEO, internet marketing, and advertising and sales writing.</p>
@@ -223,7 +226,7 @@ html{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset
 </section>
 <section class="panel" id="p-services" role="dialog" aria-modal="true" aria-label="Services">
 <div class="card">
-<button class="close" type="button" data-close>[ ESC ]</button>
+<button class="close" type="button" data-close aria-label="Close and go back to the main page">[ ESC ] Click to go back</button>
 <h2>Services</h2><div class="tag">File 02 · what the studio runs</div>
 <ul>
 <li>Custom web development</li><li>UX / UI design</li><li>Schema markup</li><li>PWA development</li>
@@ -238,7 +241,7 @@ html{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset
 </section>
 <section class="panel" id="p-contact" role="dialog" aria-modal="true" aria-label="Contact Us">
 <div class="card">
-<button class="close" type="button" data-close>[ ESC ]</button>
+<button class="close" type="button" data-close aria-label="Close and go back to the main page">[ ESC ] Click to go back</button>
 <h2>Contact Us</h2><div class="tag">Send us a message · we reply fast</div>
 <form class="mbox" id="mform" novalidate>
 <div class="two"><div><label for="mname">Your name</label><input id="mname" autocomplete="name" maxlength="80"></div>
@@ -263,7 +266,7 @@ html{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset
 </section>
 <section class="panel" id="p-find" role="dialog" aria-modal="true" aria-label="Find a doctor or attorney: coming soon">
 <div class="card soon">
-<button class="close" type="button" data-close>[ ESC ]</button>
+<button class="close" type="button" data-close aria-label="Close and go back to the main page">[ ESC ] Click to go back</button>
 <h2>Coming soon!</h2><div class="tag">Find a doctor or attorney nationwide</div>
 <div class="road" aria-hidden="true">
 <div class="caravan">
@@ -281,7 +284,7 @@ html{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset
 </section>
 <section class="panel" id="p-sites" role="dialog" aria-modal="true" aria-label="View Our Sites">
 <div class="card">
-<button class="close" type="button" data-close>[ ESC ]</button>
+<button class="close" type="button" data-close aria-label="Close and go back to the main page">[ ESC ] Click to go back</button>
 <h2>View Our Sites</h2><div class="tag">Three sites, one studio</div>
 <a class="site" href="https://www.thewebswan.com" target="_blank" rel="noopener"><b>www.thewebswan.com</b><span>Web development</span></a>
 <a class="site" href="https://www.webswandigitalsolutions.com" target="_blank" rel="noopener"><b>www.webswandigitalsolutions.com</b><span>Compliance and audit</span></a>
@@ -290,14 +293,14 @@ html{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset
 </section>
 <section class="panel" id="p-share" role="dialog" aria-modal="true" aria-label="Share this page">
 <div class="card">
-<button class="close" type="button" data-close>[ ESC ]</button>
+<button class="close" type="button" data-close aria-label="Close and go back to the main page">[ ESC ] Click to go back</button>
 <h2>Share This Page</h2><div class="tag">Send it to anyone</div>
 <div class="row" style="border-top:0"><span id="shl">https://taniad2169.github.io/WebSwan-Terminal/</span><button class="copy" type="button" data-copy="https://taniad2169.github.io/WebSwan-Terminal/">[ COPY LINK ]</button><button class="copy" type="button" id="shbtn" style="margin-left:0">[ SHARE ]</button></div>
 </div>
 </section>
 <section class="panel" id="p-lock" role="dialog" aria-modal="true" aria-label="Owner access">
 <div class="card" style="width:min(420px,100%)">
-<button class="close" type="button" data-close>[ ESC ]</button>
+<button class="close" type="button" data-close aria-label="Close and go back to the main page">[ ESC ] Click to go back</button>
 <h2>Owner access</h2><div class="tag">Enter passcode</div>
 <form id="lf" autocomplete="off"><div class="row" style="border-top:0"><label for="lockin" class="k" style="width:auto">Code</label><input id="lockin" type="password" autocomplete="off" style="flex:1;min-width:0;background:none;border:1px solid var(--line);color:var(--fg);font:inherit;padding:8px"><button class="copy" type="submit" style="margin-left:0">[ ENTER ]</button></div></form>
 <p id="lockmsg" style="margin:10px 0 0;font-size:12px;color:var(--dim)" aria-live="polite"></p>
