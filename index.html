@@ -371,7 +371,7 @@ document.querySelectorAll('[data-copy]').forEach(function(b){b.onclick=function(
 // contact message box: text or email to The WebSwan
 (function(){
 var f=document.getElementById('mform'), t=document.getElementById('mtext'), c=document.getElementById('mcnt'), m=document.getElementById('mmsg');
-var PHONE='+14158770687', MAIL='https://formsubmit.co/ajax/thewebswann@gmail.com';
+var PHONE='+14158770687', MAIL='https://formspree.io/f/xgoajlpg';
 function words(s){return (s.trim().match(/\S+/g)||[]).length}
 function trim500(){var w=t.value.trim().split(/\s+/); if(words(t.value)>500){t.value=w.slice(0,500).join(' ')} c.textContent=words(t.value)+' / 500 words'}
 t.addEventListener('input',trim500);
@@ -383,9 +383,9 @@ var ios=/iP(hone|ad|od)|Mac/.test(navigator.userAgent);
 location.href='sms:'+PHONE+(ios?'&':'?')+'body='+encodeURIComponent(body());
 m.textContent='Your messaging app should open with your text ready. Just press send. On a computer without texting, use [ SEND BY EMAIL ].'});
 document.getElementById('mmail').addEventListener('click',function(){ if(!ok())return; var b=this; b.disabled=true; m.textContent='Sending…';
-var d=new FormData(); d.append('_subject','New message from The WebSwan Terminal'); d.append('_template','table'); d.append('_captcha','false');
+var d=new FormData(); d.append('_subject','New message from The WebSwan Terminal'); d.append('source','The WebSwan Terminal');
 d.append('name',document.getElementById('mname').value.trim()); d.append('contact',document.getElementById('mphone').value.trim()); d.append('message',t.value.trim());
-var pv=document.getElementById('mphone').value.trim(); if(/@/.test(pv)) d.append('_replyto',pv);
+var pv=document.getElementById('mphone').value.trim(); if(/@/.test(pv)) d.append('email',pv);
 fetch(MAIL,{method:'POST',body:d,headers:{'Accept':'application/json'}}).then(function(r){if(!r.ok)throw 0; m.textContent='Thank you! Your message was sent. We will get back to you soon.'; t.value=''; trim500()}).catch(function(){m.textContent='Sorry, that did not go through. Please call or text (415) 877-0687.'}).then(function(){b.disabled=false})});
 })();
 var sb=document.getElementById('shbtn');
